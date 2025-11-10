@@ -1,0 +1,19 @@
+# Node and build
+node_modules/
+dist/
+*.log
+.env*
+.DS_Store
+
+# Task Manager repo only — exclude other assignment artifacts
+assignment_submission/
+assignment_readme.md
+data/
+scripts/
+results.json
+results.md
+
+# Archives and temporary files
+*.zip
+task-manager-submission.zip
+assignment_submission.zip
