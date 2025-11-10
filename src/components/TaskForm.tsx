@@ -12,6 +12,22 @@ export default function TaskForm({ onAdd }: Props) {
   const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState<'Work' | 'Personal' | 'Study' | 'Other'>('Work')
 
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const inputDate = e.target.value;
+    // Regular expression to match YYYY-MM-DD format and ensure year is 4 digits
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (datePattern.test(inputDate)) {
+      setDueDate(inputDate);
+    } else if (inputDate === '') {
+      setDueDate('');
+    } else {
+      // Optionally, provide user feedback about invalid date format
+      // For now, we'll just prevent updating the state with invalid input
+      console.log('Invalid date format or year length. Please use YYYY-MM-DD.');
+    }
+  }
+
   function handleSubmit(e: any) {
     e.preventDefault()
     if (!title.trim() || !dueDate) return
@@ -52,7 +68,7 @@ export default function TaskForm({ onAdd }: Props) {
           <input
             type="date"
             value={dueDate}
-            onChange={(e: any) => setDueDate(e.target.value)}
+            onChange={handleDateChange}
             required
           />
         </label>

@@ -22,6 +22,22 @@ export default function EditTaskModal({ task, onClose, onSave }: Props) {
     }
   }, [task])
 
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const inputDate = e.target.value;
+    // Regular expression to match YYYY-MM-DD format and ensure year is 4 digits
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (datePattern.test(inputDate)) {
+      setDueDate(inputDate);
+    } else if (inputDate === '') {
+      setDueDate('');
+    } else {
+      // Optionally, provide user feedback about invalid date format
+      // For now, we'll just prevent updating the state with invalid input
+      console.log('Invalid date format or year length. Please use YYYY-MM-DD.');
+    }
+  }
+
   if (!task) return null
 
   function handleSave(e: any) {
@@ -49,7 +65,7 @@ export default function EditTaskModal({ task, onClose, onSave }: Props) {
           </label>
           <label>
             Due Date
-            <input type="date" value={dueDate} onChange={(e: any) => setDueDate(e.target.value)} required />
+            <input type="date" value={dueDate} onChange={handleDateChange} required />
           </label>
           <label>
             Category
